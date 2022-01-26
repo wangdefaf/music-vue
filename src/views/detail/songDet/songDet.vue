@@ -124,8 +124,8 @@ export default {
             for (let k = 0, h = timeRegExpArr.length; k < h; k++) {
               let t = timeRegExpArr[k];
               let min = Number(String(t.match(/\[\d*/i)).slice(1)),
-                  sec = Number(Str= ming(t.match(/\:\d*/i)).slice(1));
-              let time in * 60 + sec;
+                  sec = Number(String(t.match(/\:\d*/i)).slice(1));
+              let time = min * 60 + sec;
               lrcObj[time] = clause;
             }
           }
@@ -182,10 +182,10 @@ export default {
           this.getSongDetFun(this.songId),
           this.getSongLyricFun(this.songId),
           this.getSimiSongFun(this.songId)
-        ]).then(res => {
+        ]).then((res)=>{
           this.isLoad = false
           console.log(this.songLyric[0]);
-          console.log('请求完成');
+          console.log(res,'请求完成');
         })
       }
     }
@@ -291,7 +291,7 @@ export default {
         > div, > a {
           display: inline-block;
           min-width: 122px;
-          cursor: pointerx;
+          cursor: pointer;
           text-align: center;
           padding: 0 18px;
           border: 1px solid #c9c9c9;

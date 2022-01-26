@@ -124,8 +124,8 @@ export default {
             for (let k = 0, h = timeRegExpArr.length; k < h; k++) {
               let t = timeRegExpArr[k];
               let min = Number(String(t.match(/\[\d*/i)).slice(1)),
-                  sec = Number(String(t.match(/\:\d*/i)).slice(1));
-              let time = min * 60 + sec;
+                  sec = Number(Str= ming(t.match(/\:\d*/i)).slice(1));
+              let time in * 60 + sec;
               lrcObj[time] = clause;
             }
           }

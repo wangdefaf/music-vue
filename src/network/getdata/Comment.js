@@ -16,31 +16,31 @@ export function getPlayListComment(id, pageNo, type, sortType, pageSize) {
 }
 
 // 评论回复
-export function getReplyComment(id, parentCommentId, type, limit, time) {
+export function getReplyComment(id, parentCommentId, type, limit, time, cookie) {
     return request({
         url: '/comment/floor',
         params: {
-            id, parentCommentId, type, limit, time
+            id, parentCommentId, type, limit, time, cookie
         }
     })
 }
 
 //发表评论
-export function getIssueComment(id, content, t, type, cid) {
+export function getIssueComment(id, content, t, type, cid, cookie) {
     return request({
         url: '/comment',
         params: {
-            id, cid, content, t, type
+            id, cid, content, t, type, cookie
         }
     })
 }
 
 // 评论点赞
-export function getPlayListCommentLike(id, cid, t, type) {
+export function getPlayListCommentLike(id, cid, t, type, cookie) {
     return request({
         url: '/comment/like',
         params: {
-            id, cid, t, type
+            id, cid, t, type, cookie
         }
     })
 }

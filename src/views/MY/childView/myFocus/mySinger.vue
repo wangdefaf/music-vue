@@ -1,6 +1,6 @@
 <template>
   <div id="mySinger">
-    <div class="singer_list">
+    <div v-if="singerList[0]" class="singer_list">
       <div v-for="(item,index) in singerList" class="singer_item">
         <el-image :src="item.img1v1Url+'?param=140y140'" class="coverImg">
           <img slot="placeholder" class="image-slot" src="~@/assets/image/public/loadImg.png">
@@ -9,6 +9,10 @@
         <div v-if="!item.info" class="button" @click="cancelFollow(index)"><i></i>已关注</div>
         <div v-else class="button not_button" @click="follow(index)"><i></i>关注</div>
       </div>
+    </div>
+    <div v-else class="notMV">
+      <i></i>
+      <p>什么也没有，<a href="/Home">音乐馆</a>发现好音乐</p>
     </div>
   </div>
 </template>
@@ -25,13 +29,13 @@ export default {
   },
   methods: {
     getArtistSublistFun() {
-      getArtistSublist().then(res => {
+      getArtistSublist(this.$cookies.get('token')).then(res => {
         this.singerList = res.data
         console.log(res, '歌手关注列表');
       })
     },
     cancelFollow(index) {
-      getFollow(this.singerList[index].userId, 0).then(res => {
+      getFollow(this.singerList[index].userId, 0, this.$cookies.get('token')).then(res => {
         this.singerList[index].info = 1
         if (!this.isPopNotFollow) {
           this.$emit('PopNotFollowClick', true)
@@ -43,7 +47,7 @@ export default {
       })
     },
     follow(index) {
-      getFollow(this.singerList[index].userId, 1).then(res => {
+      getFollow(this.singerList[index].userId, 1, this.$cookies.get('token')).then(res => {
         this.singerList[index].info = 0
         if (!this.isPopFollow) {
           this.$emit('PopFollowClick', true)

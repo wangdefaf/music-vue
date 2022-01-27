@@ -1,6 +1,6 @@
 <template>
   <div id="myUser">
-    <div class="user_list">
+    <div v-if="userList[0]" class="user_list">
       <div v-for="(item,index) in userList" class="user_item">
         <el-image :src="item.avatarUrl+'?param=140y140'" class="coverImg">
           <img slot="placeholder" class="image-slot" src="~@/assets/image/public/loadImg.png">
@@ -10,6 +10,10 @@
         <div v-if="!item.time" class="button" @click="cancelFollow(index)"><i></i>已关注</div>
         <div v-else class="button not_button" @click="follow(index)"><i></i>关注</div>
       </div>
+    </div>
+    <div v-else class="notMV">
+      <i></i>
+      <p>什么也没有，<a href="/Home">音乐馆</a>发现好音乐</p>
     </div>
   </div>
 </template>
@@ -35,7 +39,7 @@ export default {
       })
     },
     cancelFollow(index) {
-      getFollow(this.userList[index].userId, 0).then(res => {
+      getFollow(this.userList[index].userId, 0, this.$cookies.get('token')).then(res => {
         this.userList[index].time = 1
         if (!this.isPopNotFollow) {
           this.$emit('PopNotFollowClick', true)
@@ -47,7 +51,7 @@ export default {
       })
     },
     follow(index) {
-      getFollow(this.userList[index].userId, 1).then(res => {
+      getFollow(this.userList[index].userId, 1, this.$cookies.get('token')).then(res => {
         this.userList[index].time = 0
         if (!this.isPopFollow) {
           this.$emit('PopFollowClick', true)

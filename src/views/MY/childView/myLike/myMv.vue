@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     getMvSublistFun() {
-      getMvSublist().then(res => {
+      getMvSublist(this.$cookies.get('token')).then(res => {
         this.mvList = res.data
         console.log(res);
       })

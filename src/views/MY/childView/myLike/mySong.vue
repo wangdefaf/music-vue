@@ -46,9 +46,9 @@ export default {
   methods: {
     getUserPlaylistFun() {
       console.log(this.playlistId);
-      getPlayListDet(this.playlistId).then(res => {
+      getPlayListDet(this.playlistId, this.$cookies.get("token")).then(res => {
         this.songList = res.playlist.tracks.splice(0, 15)
-        console.log(res.playlist.tracks, '我喜欢的歌单');
+        console.log(res, '我喜欢的歌单');
       })
     },
     playerChange() {

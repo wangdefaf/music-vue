@@ -121,7 +121,8 @@ export default {
             this.$cookies.set("token", res.cookie)
             this.$cookies.set("userId", res.profile.userId)
             this.loginFailed = ''
-            this.$router.go(0)
+            console.log(res);
+            // this.$router.go(0)
           } else {//登录失败
             this.loginFailed = res.msg
             console.log(res.msg);

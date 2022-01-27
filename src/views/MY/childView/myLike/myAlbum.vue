@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     getAlbumListFun() {
-      getAlbumList().then(res => {
+      getAlbumList(this.$cookies.get('token')).then(res => {
         this.albumList = res.paidAlbums
         console.log(res);
       })

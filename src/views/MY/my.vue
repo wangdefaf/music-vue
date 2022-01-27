@@ -22,11 +22,11 @@
             <p>{{ userInfo.nickname }}</p>
             <div class="statistic">
               <router-link class="follow" style="border-right:1px solid #24313d" tag="div" to="/My/Focus/singer">
-                <span>{{ follow.length }}</span>
+                <span>{{ userInfo.follows }}</span>
                 <strong>关注</strong>
               </router-link>
               <router-link class="fan" tag="div" to="/My/Fans">
-                <span>{{ userFoll.artistCount }}</span>
+                <span>{{ userInfo.followeds }}</span>
                 <strong>粉丝</strong>
               </router-link>
             </div>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import {getUserDet, getUserFoll, getUserInfo} from "@/network/getdata/user";
+import {getUserDet} from "@/network/getdata/user";
 import Login from "@/components/common/Login/login";
 import Loading from "@/components/common/loading/loading";
 
@@ -62,15 +62,8 @@ export default {
     return {
       isLoginView: false,
       userInfo: {},
-      userFoll: {},
-      follow: [],
       isLoad: true,
       emitIsLoad: true
-    }
-  },
-  watch: {
-    $cookies() {
-      console.log(this.$cookies.get('token'), '我是watch！！');
     }
   },
   methods: {
@@ -82,7 +75,6 @@ export default {
       this.isLoginView = false
       if (isLogin) {
         this.getUserDetFun(this.$cookies.get('userId'))
-        this.getUserInfoFun()
         console.log('登录');
       }
     },
@@ -95,32 +87,16 @@ export default {
     },
     //网络请求
     getUserDetFun() {
-      return getUserDet(this.$cookies.get('userId')).then(res => {
+      return getUserDet(this.$cookies.get('userId'), this.$cookies.get('token')).then(res => {
         this.userInfo = res.profile
-        console.log(res.profile.avatarUrl);
-      })
-    },
-    getUserInfoFun() {
-      return getUserInfo().then(res => {
-        this.userFoll = res
-      })
-    },
-    getUserFollFun() {
-      return getUserFoll(this.$cookies.get('userId')).then(res => {
-        this.follow = res.follow
+        this.isLoad = false
+        console.log(res);
       })
     },
   },
   created() {
     if (this.$cookies.get('token')) {
-      Promise.all([
-        this.getUserDetFun(),
-        this.getUserInfoFun(),
-        this.getUserFollFun()
-      ]).then(res => {
-        this.isLoad = false
-        console.log(res);
-      })
+      this.getUserDetFun()
     }
   },
   components: {Loading, Login},

@@ -48,9 +48,10 @@ export default {
             break;
           case 803://登录成功
             getUesrAccount().then(res => {
+              console.log(res, 'userId');
               this.$cookies.set("token", res.cookie)
               this.$cookies.set("userId", res.profile.userId)
-              this.$router.go(0)
+              // this.$router.go(0)
             })
             break;
         }

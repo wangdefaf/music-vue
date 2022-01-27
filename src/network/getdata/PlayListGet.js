@@ -18,11 +18,12 @@ export function getPlayTag() {
 }
 
 //歌单详情
-export function getPlayListDet(id) {
+export function getPlayListDet(id, cookie) {
     return request({
         url: '/playlist/detail',
         params: {
-            id
+            id,
+            cookie
         }
     })
 }

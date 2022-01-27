@@ -1,6 +1,6 @@
 <template>
   <div id="myFans">
-    <div class="singer_list">
+    <div v-if="followeds[0]" class="singer_list">
       <div v-for="(item,index) in followeds" class="singer_item">
         <el-image :src="item.avatarUrl+'?param=140y140'" class="coverImg">
           <img slot="placeholder" class="image-slot" src="~@/assets/image/public/loadImg.png">
@@ -10,6 +10,10 @@
         <div v-if="!item.info" class="button" @click="cancelFollow(index)"><i></i>已关注</div>
         <div v-else class="button not_button" @click="follow(index)"><i></i>关注</div>
       </div>
+    </div>
+    <div v-else class="notMV">
+      <i></i>
+      <p>什么也没有，<a href="/Home">音乐馆</a>发现好音乐</p>
     </div>
     <div v-show="isPopFollow" class="popFollow">
       <i></i><br>
@@ -36,14 +40,14 @@ export default {
   },
   methods: {
     getUserFollowedsFun() {
-      getUserFolloweds(this.$cookies.get('userId')).then(res => {
+      getUserFolloweds(this.$cookies.get('userId'), this.$cookies.get('token')).then(res => {
         this.followeds = res.followeds
         this.$emit('emitLoad')
         console.log(res);
       })
     },
     cancelFollow(index) {
-      getFollow(this.followeds[index].userId, 0).then(res => {
+      getFollow(this.followeds[index].userId, 0, this.$cookies.get('token')).then(res => {
         this.followeds[index].info = 1
         if (!this.isPopNotFollow) {
           this.isPopNotFollow = true
@@ -55,7 +59,7 @@ export default {
       })
     },
     follow(index) {
-      getFollow(this.followeds[index].userId, 1).then(res => {
+      getFollow(this.followeds[index].userId, 1, this.$cookies.get('token')).then(res => {
         this.followeds[index].info = 0
         if (!this.isPopFollow) {
           this.isPopFollow = true
@@ -78,6 +82,26 @@ export default {
   width: 1200px;
   margin: 0 auto;
 
+  .notMV {
+    font-size: 20px;
+    color: #666;
+    line-height: 38px;
+    text-align: center;
+    padding: 90px 0 100px;
+
+    i {
+      display: block;
+      width: 213px;
+      height: 203px;
+      margin: 0 auto 27px;
+      background: url("~@/assets/image/login/notIcon.png");
+    }
+
+    a {
+      color: #31c27c;
+      text-decoration: none;
+    }
+  }
   .singer_list {
     padding-top: 20px;
     display: flex;

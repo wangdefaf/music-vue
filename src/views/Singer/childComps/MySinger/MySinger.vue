@@ -64,10 +64,11 @@ export default {
       console.log(this.indexBanna);
     },
     getArtistSublistFun() {
-      getArtistSublist().then(res => {
+      getArtistSublist(this.$cookies.get("token")).then(res => {
+        console.log(this.listLength, res, '歌手关注列表', this.$cookies.get("token"));
         this.singerList = res.data
         this.listLength = Math.ceil(res.data.length / 5)
-        console.log(this.listLength, res, '歌手关注列表');
+
       })
     },
   },

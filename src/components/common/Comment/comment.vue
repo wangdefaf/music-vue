@@ -128,13 +128,13 @@ export default {
     },
     issueComment(dom, id) {
       if (!id) {
-        getIssueComment(this.id, dom.innerText, 1, this.type).then(res => {
+        getIssueComment(this.id, dom.innerText, 1, this.type, this.$cookies.get('token')).then(res => {
           dom.innerText = ''
           this.writeReplyIndex = -1
           console.log('提交', res);
         })
       } else {
-        getIssueComment(this.id, dom[0].innerText, 1, this.type, id).then(res => {
+        getIssueComment(this.id, dom[0].innerText, 1, this.type, this.$cookies.get('token')).then(res => {
           dom[0].innerText = ''
           this.writeReplyIndex = -1
           this.writeCommentsIndex = -1
@@ -163,14 +163,14 @@ export default {
     likeClick(item) {//评论点赞
       item.parentCommentId = !item.parentCommentId
       let t = item.parentCommentId ? 1 : 0
-      getPlayListCommentLike(this.id, item.commentId, t, this.type).then(res => {
+      getPlayListCommentLike(this.id, item.commentId, t, this.type, this.$cookies.get('token')).then(res => {
         console.log('qaa');
       })
     },
     likeReplyClick(id, item) {//回复评论点赞
       item.commentLocationType = !item.commentLocationType
       let t = item.commentLocationType ? 1 : 0
-      getPlayListCommentLike(id, item.commentId, t, this.type).then(res => {
+      getPlayListCommentLike(id, item.commentId, t, this.type, this.$cookies.get('token')).then(res => {
       })
     },
     replyCLick(item) {//回复数据展示

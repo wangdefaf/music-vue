@@ -8,9 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
-    "core-js": "^3.6.5",
     "element-ui": "^2.15.7",
-    "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
     "vue-router": "^3.2.0",
@@ -20,7 +18,14 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "vue-template-compiler": "^2.6.11"
+    "cache-loader": "^4.1.0",
+    "sass": "^1.49.0",
+    "sass-loader": "^10.2.1",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.46.0"
+  },
+  "nodeSassConfig": {
+    "binarySite": "https://npm.taobao.org/mirrors/node-sass"
   },
   "browserslist": [
     "> 1%",

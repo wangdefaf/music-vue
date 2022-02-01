@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function request(config) {
     const instance = axios.create({
-        baseURL: 'http://8.141.157.64:3000',
+        baseURL: 'https://netease-cloud-music-api-eight-mauve.vercel.app/',
         timeout: 5000,
         withCredentials: true
     })
